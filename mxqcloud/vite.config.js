@@ -11,7 +11,17 @@ export default defineConfig({
     resolve: {
         alias: {'@': resolve(__dirname, './src')}
     },
-
+    define: {
+        'process.env': {}
+    },
+    css: {
+        // css预处理器
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@import '@/styles/variables.scss';`
+            }
+        }
+    },
     build: {
         outDir: "../cordovacloud/www"
     }

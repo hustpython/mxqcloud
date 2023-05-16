@@ -1,0 +1,7 @@
+pkg
+vendor
+*.exe*
+*tmp*
+.idea
+*.json*
+*www*

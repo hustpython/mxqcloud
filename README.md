@@ -14,6 +14,8 @@ cordova platform ls
 删除平台:
 
 cordova platform remove ios
+cordova plugin add cordova-plugin-image-picker
+cordova plugin add cordova-plugin-file
 
 运行项目:
 先编译vue-vite项目，其中需要修改vite.config.js，用来修改打包的路径
