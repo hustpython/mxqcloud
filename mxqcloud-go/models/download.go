@@ -9,6 +9,6 @@ type Download struct {
 	Device   *Device `orm:"null;rel(fk)"`
 	FileType string
 	Url      string
-	Size     int32
+	Size     int64
 	Date     time.Time
 }

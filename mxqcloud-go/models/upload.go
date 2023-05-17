@@ -16,8 +16,11 @@ type Upload struct {
 	Device   *Device `orm:"null;rel(fk)"`
 	FileType string
 	Url      string
-	Size     int32
+	Size     int64
+	SizeStr  string
 	Date     time.Time
+	DateStr  string
+	Check    bool `orm:"-"`
 }
 
 var ormOpr orm.Ormer
@@ -28,6 +31,7 @@ func init() {
 	orm.RegisterDataBase("default", "sqlite3", "./mxqcloud.db")
 	orm.RunSyncdb("default", false, true)
 	ormOpr = orm.NewOrm()
+	initServerSavePath()
 }
 
 func AddUploadData(u *Upload) error {
@@ -40,4 +44,25 @@ func AddUploadData(u *Upload) error {
 		return errors.New("Exist")
 	}
 
+}
+
+func GetUpload(name string) ([]*Upload, error) {
+	var device = Device{Name: name}
+	_, err := ormOpr.LoadRelated(&device, "Uploads")
+	if err != nil {
+		return nil, err
+	}
+	return device.Uploads, nil
+}
+
+func DeleteUpload(id string) (string, error) {
+	var u Upload
+	err := ormOpr.QueryTable("upload").Filter("id", id).One(&u)
+	if err != nil {
+		return "", err
+	}
+	if _, e := ormOpr.Delete(&u); e != nil {
+		return "", e
+	}
+	return u.Url, nil
 }

@@ -33,10 +33,15 @@ func init() {
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/upload",
 			beego.NSRouter("", &controllers.UploadController{}, "POST:Upload"),
+			beego.NSRouter("", &controllers.UploadController{}, "Get:GetUpload"),
+			beego.NSRouter("", &controllers.UploadController{}, "DELETE:DelUpload"),
+		),
+		beego.NSNamespace("/download",
+			beego.NSRouter("", &controllers.DownloadController{}, "Get:GetDownload"),
 		),
 		beego.NSNamespace("/device",
-			beego.NSRouter("", &controllers.DeviceController{}, "POST:Device"),
-			beego.NSRouter("", &controllers.DeviceController{}, "GET:GetDevice"),
+			beego.NSRouter("", &controllers.DeviceController{}, "POST:AddOrUpdateDevice"),
+			beego.NSRouter("/?:Name", &controllers.DeviceController{}, "GET:GetDevice"),
 		),
 	)
 	beego.AddNamespace(ns)

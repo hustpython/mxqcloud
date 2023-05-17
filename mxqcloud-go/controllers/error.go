@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	beego "github.com/beego/beego/v2/server/web"
 	"net/http"
 )
@@ -22,6 +23,7 @@ func (m *ErrorController) setNotFound(errorMsg string) {
 }
 
 func (m *ErrorController) setInternalError(errorMsg string) {
+	fmt.Println(errorMsg)
 	m.Ctx.Output.SetStatus(http.StatusInternalServerError)
 	m.Data["json"] = errorMsg
 	m.ServeJSON()

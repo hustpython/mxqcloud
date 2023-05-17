@@ -18,5 +18,6 @@
         position: fixed;
         font-size: 20px;
         color: aliceblue;
+        z-index: 100;
     }
 </style>

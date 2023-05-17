@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	beego.BConfig.MaxUploadSize = 1 << 40
+	beego.BConfig.MaxMemory = 1 << 30
 	beego.Run()
 }
-
